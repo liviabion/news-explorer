@@ -3,8 +3,19 @@ import { View, ActivityIndicator, StyleSheet, FlatList, Text, TouchableOpacity, 
 import axios from 'axios';
 import { News, SearchBar, Header } from '../../components';
 
+// Definindo a interface para um artigo de notícia
+interface NewsItem {
+    title: string;
+    description: string;
+    url: string;
+    source: {
+        name: string;
+    };
+    urlToImage: string;
+}
+
 export default function Search() {
-    const [newsData, setNewsData] = useState([]);
+    const [newsData, setNewsData] = useState<NewsItem[]>([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [history, setHistory] = useState<string[]>([]);
@@ -13,7 +24,7 @@ export default function Search() {
         setLoading(true);
         try {
             const resp = await axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=e09003ae6ecc4b4a8c940567b8222b79`);
-            const filteredArticles = resp.data.articles.filter(article => article.title !== "[Removed]");
+            const filteredArticles = resp.data.articles.filter((article: NewsItem) => article.title !== "[Removed]");
             setNewsData(filteredArticles);
             if (query && !history.includes(query)) {
                 setHistory([query, ...history]);
@@ -34,7 +45,12 @@ export default function Search() {
         setNewsData([]);
     };
 
-    const renderItem = ({ item }) => (
+    const handleClearHistory = () => {
+        setHistory([]);
+    };
+
+    // Tipando o parâmetro 'item' como NewsItem
+    const renderItem = ({ item }: { item: NewsItem }) => (
         <News
             title={item.title}
             description={item.description}
@@ -50,6 +66,9 @@ export default function Search() {
             <SearchBar onSearch={handleSearch} />
             <View style={styles.historyContainer}>
                 <Text style={styles.historyTitle}>Search History:</Text>
+                {history.length > 0 && (
+                    <Button title="Clear History" onPress={handleClearHistory} color="#FF0000" />
+                )}
                 {history.map((item, index) => (
                     <TouchableOpacity key={index} onPress={() => handleSearch(item)}>
                         <Text style={styles.historyItem}>{item}</Text>
@@ -100,4 +119,3 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
 });
- 

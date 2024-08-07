@@ -3,8 +3,19 @@ import { View, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
 import axios from 'axios';
 import { News, Header } from '../../components'; // Importando o novo componente News
 
+// Definindo a interface para um artigo de notícia
+interface NewsItem {
+    title: string;
+    description: string;
+    url: string;
+    source: {
+        name: string;
+    };
+    urlToImage: string;
+}
+
 export default function Index() {
-    const [newsData, setNewsData] = useState([]);
+    const [newsData, setNewsData] = useState<NewsItem[]>([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -22,7 +33,8 @@ export default function Index() {
         getNewsData();
     }, []);
 
-    const renderItem = ({ item }) => (
+    // Tipando o parâmetro 'item' como NewsItem
+    const renderItem = ({ item }: { item: NewsItem }) => (
         <News 
             title={item.title} 
             description={item.description}
@@ -47,7 +59,6 @@ export default function Index() {
         </View>
     );
 }
-
 
 const styles = StyleSheet.create({
   container: {
