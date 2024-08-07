@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
 import axios from 'axios';
-import { TopNews } from '../../components';
+import { News, Header } from '../../components'; // Importando o novo componente News
 
 export default function Index() {
     const [newsData, setNewsData] = useState([]);
@@ -23,11 +23,18 @@ export default function Index() {
     }, []);
 
     const renderItem = ({ item }) => (
-        <TopNews title={item.title} urlImage={item.urlToImage} link={item.url} />
+        <News 
+            title={item.title} 
+            description={item.description}
+            link={item.url}
+            source={item.source.name}
+            urlImage={item.urlToImage} 
+        />
     );
 
     return (
         <View style={styles.container}>
+            <Header title="Home" />
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" />
             ) : (
@@ -39,7 +46,8 @@ export default function Index() {
             )}
         </View>
     );
-  }
+}
+
 
 const styles = StyleSheet.create({
   container: {
