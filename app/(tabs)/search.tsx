@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, ActivityIndicator, StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, FlatList, Text, TouchableOpacity, Button } from 'react-native';
 import axios from 'axios';
-import { News, SearchBar } from '../../components';
+import { News, SearchBar, Header } from '../../components';
 
 export default function Search() {
     const [newsData, setNewsData] = useState([]);
@@ -13,7 +13,8 @@ export default function Search() {
         setLoading(true);
         try {
             const resp = await axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=e09003ae6ecc4b4a8c940567b8222b79`);
-            setNewsData(resp.data.articles);
+            const filteredArticles = resp.data.articles.filter(article => article.title !== "[Removed]");
+            setNewsData(filteredArticles);
             if (query && !history.includes(query)) {
                 setHistory([query, ...history]);
             }
@@ -28,6 +29,11 @@ export default function Search() {
         getNewsData(query);
     };
 
+    const handleClearSearch = () => {
+        setSearchQuery('');
+        setNewsData([]);
+    };
+
     const renderItem = ({ item }) => (
         <News
             title={item.title}
@@ -40,6 +46,7 @@ export default function Search() {
 
     return (
         <View style={styles.container}>
+            <Header title="Search" />
             <SearchBar onSearch={handleSearch} />
             <View style={styles.historyContainer}>
                 <Text style={styles.historyTitle}>Search History:</Text>
@@ -51,12 +58,17 @@ export default function Search() {
             </View>
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" />
+            ) : newsData.length === 0 && searchQuery !== '' ? (
+                <Text style={styles.noResultsText}>No results found for "{searchQuery}".</Text>
             ) : (
                 <FlatList
                     data={newsData}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.url}
                 />
+            )}
+            {newsData.length > 0 && (
+                <Button title="Clear Search" onPress={handleClearSearch} />
             )}
         </View>
     );
@@ -66,9 +78,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        paddingTop: 80,
     },
     historyContainer: {
+        padding: 5,
         marginBottom: 20,
     },
     historyTitle: {
@@ -81,4 +93,11 @@ const styles = StyleSheet.create({
         color: '#007BFF',
         marginBottom: 5,
     },
+    noResultsText: {
+        fontSize: 16,
+        color: 'red',
+        textAlign: 'center',
+        marginTop: 20,
+    },
 });
+ 
