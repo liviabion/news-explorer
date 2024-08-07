@@ -1,8 +1,20 @@
 "use client";
 import React from 'react';
 import { Line, Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 
-interface NewsChartProps {
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+interface ChartProps {
   lineData: {
     labels: string[];
     datasets: {
@@ -10,6 +22,7 @@ interface NewsChartProps {
       data: number[];
       borderColor: string;
       backgroundColor: string;
+      pointBackgroundColor?: string; // Adicionando propriedade opcional para cor dos pontos
     }[];
   };
   barData: {
@@ -24,17 +37,13 @@ interface NewsChartProps {
   };
 }
 
-const NewsChart: React.FC<NewsChartProps> = ({ lineData, barData }) => {
+const NewsChart: React.FC<ChartProps> = ({ lineData, barData }) => {
   return (
     <div>
-      <div>
-        <h2>News Trend Over Time</h2>
-        <Line data={lineData} />
-      </div>
-      <div style={{paddingTop: '60px'}}>
-        <h2>News Sources Distribution</h2>
-        <Bar data={barData} />
-      </div>
+      <h2>News Trends</h2>
+      <Line data={lineData} />
+      <h2>News Sources</h2>
+      <Bar data={barData} />
     </div>
   );
 };
