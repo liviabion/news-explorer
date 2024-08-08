@@ -1,50 +1,46 @@
-# Welcome to your Expo app 👋
+# News Explorer
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Bem-vindo ao News Explorer! Este projeto inclui uma aplicação mobile desenvolvida com Expo e um dashboard web criado com Next.js.
 
-## Get started
+## Configuração do Ambiente
 
-1. Install dependencies
+1. **Clone o repositório:**
+bash
+   git clone https://github.com/seu-usuario/news-explorer.git
 
-   ```bash
+2. **Instale as dependências:**
+
+   Navegue para o diretório do projeto e instale as dependências: 
+   
    npm install
-   ```
 
-2. Start the app
+## Executando a Aplicação Mobile
 
-   ```bash
-    npx expo start
-   ```
+1. **Inicie o Expo:**
 
-In the output, you'll find options to open the app in a
+   No diretório principal do projeto, inicie o Expo:
+   
+   npx expo start
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+2. **Visualize a aplicação mobile:**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   - Abra o aplicativo Expo Go no seu dispositivo móvel e escaneie o QR code fornecido para visualizar a aplicação.
+   - Alternativamente, você pode visualizar a aplicação mobile através do endereço fornecido (http://localhost:8081/).
 
-## Get a fresh project
+## Executando o Dashboard Web
 
-When you're ready, run:
+1. **Navegue até o diretório do dashboard:**
+bash
+   cd admin
 
-```bash
-npm run reset-project
-```
+2. **Instale as dependências do dashboard:**
+bash
+   npm install
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+3. **Inicie o servidor de desenvolvimento do Next.js:**
+bash
+   npm run dev
 
-## Learn more
+4. **Acesse o dashboard web:**
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+   Abra seu navegador e acesse o dashboard através do endereço fornecido (geralmente http://localhost:3000).

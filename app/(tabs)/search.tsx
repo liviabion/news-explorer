@@ -23,7 +23,7 @@ export default function Search() {
     const getNewsData = async (query: string) => {
         setLoading(true);
         try {
-            const resp = await axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=e09003ae6ecc4b4a8c940567b8222b79`);
+            const resp = await axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=adaad823e14d4eb7a5177752d076a5e3`);
             const filteredArticles = resp.data.articles.filter((article: NewsItem) => article.title !== "[Removed]");
             setNewsData(filteredArticles);
             if (query && !history.includes(query)) {

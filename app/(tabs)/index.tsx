@@ -22,7 +22,7 @@ export default function Index() {
         const getNewsData = async () => {
             setLoading(true);
             try {
-                const resp = await axios.get("https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=e09003ae6ecc4b4a8c940567b8222b79");
+                const resp = await axios.get("https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=adaad823e14d4eb7a5177752d076a5e3");
                 setNewsData(resp.data.articles);
             } catch (error) {
                 console.error(error);
